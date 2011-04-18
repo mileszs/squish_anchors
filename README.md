@@ -13,4 +13,4 @@ and turns it in to one big anchor tag, like
     String.instance_eval { include SquishAnchors }
     ...
     bad = '<a href="/foo/bar"> This is</a>  <a href="/foo/bar">some mal </a> <a href="/foo/bar"> formed HTML content</a> from a JS wysiwig HTML editor'
-    good = str.squish_anchors
+    good = bad.squish_anchors
