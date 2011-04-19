@@ -8,7 +8,7 @@ module SquishAnchors
     str = self.dup
     match = LINK_REGEX.match(str)
     if (match)
-      while ((matcher = Regexp.new("%s(\\s*)#{LINK_REGEX_BASE.to_s}" % [match[0], match[1]], REGEXP_OPTIONS)) && 
+      while ((matcher = Regexp.new("%s(\\s*)#{LINK_REGEX_BASE.to_s}" % [match[0].regexp_safe, match[1].regexp_safe], REGEXP_OPTIONS)) && 
               (next_match = matcher.match(str)))
         str.gsub!(matcher, "<a href=\"#{match[1]}\">#{match[2]}#{next_match[1]}\\1</a>")
         match = LINK_REGEX.match(str)
@@ -18,4 +18,11 @@ module SquishAnchors
       str
     end
   end
+
+  protected
+
+  def regexp_safe
+    self.dup.gsub(/([\W])/, "\\\\\\1")
+  end
+
 end
